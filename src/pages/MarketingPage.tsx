@@ -6,12 +6,13 @@ import { HowItWorks } from "../components/HowItWorks";
 import { Capabilities } from "../components/Capabilities";
 import { DemoShowcase } from "../components/DemoShowcase";
 import { UseCases } from "../components/UseCases";
+import { Roadmap } from "../components/Roadmap";
 import { Contact } from "../components/Contact";
 import { Footer } from "../components/Footer";
 
 export function MarketingPage() {
   useEffect(() => {
-    document.title = "ILYQO — Intelligence That Moves Business";
+    document.title = "ILYQO — AI Business Operations Platform";
   }, []);
 
   return (
@@ -25,11 +26,12 @@ export function MarketingPage() {
       <Navbar />
       <main id="main">
         <Hero />
+        <Capabilities />
         <ProblemSolution />
         <HowItWorks />
-        <Capabilities />
         <DemoShowcase />
         <UseCases />
+        <Roadmap />
         <Contact />
       </main>
       <Footer />

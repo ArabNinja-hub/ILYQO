@@ -8,7 +8,6 @@ import {
 } from "lucide-react";
 import { ButtonLink, ButtonTo } from "./Button";
 import { DemoBadge } from "./DemoBadge";
-import { useCountUp } from "../hooks";
 
 const snapshotStats = [
   { icon: Inbox, label: "New enquiries", value: 4, tone: "text-volt-300 bg-volt-500/15" },
@@ -22,31 +21,9 @@ const schedule = [
   { time: "11:15", customer: "Taonga Banda", service: "Kids cut", barber: "Joseph", status: "Scheduled" },
 ];
 
-function Stat({
-  icon: Icon,
-  label,
-  value,
-  tone,
-  delay,
-}: (typeof snapshotStats)[number] & { delay: number }) {
-  const count = useCountUp(value, 900, 500 + delay);
-  return (
-    <div
-      className="animate-rise rounded-2xl border border-line bg-ink-900/70 p-3.5"
-      style={{ animationDelay: `${420 + delay}ms` }}
-    >
-      <span className={`grid h-8 w-8 place-items-center rounded-lg ${tone}`}>
-        <Icon className="h-4 w-4" aria-hidden="true" />
-      </span>
-      <p className="mt-3 font-display text-2xl font-semibold tabular-nums text-cloud-50">{count}</p>
-      <p className="mt-0.5 text-[11px] leading-tight text-cloud-500">{label}</p>
-    </div>
-  );
-}
-
 /**
- * Hero — headline, CTA and an animated "operations snapshot" card that
- * previews what the Demo Cuts demonstration contains.
+ * Hero — category, headline, status-honest supporting copy, the demo CTA and
+ * a static "operations snapshot" card previewing the Demo Cuts demonstration.
  */
 export function Hero() {
   return (
@@ -55,41 +32,46 @@ export function Hero() {
       aria-labelledby="hero-heading"
       className="relative overflow-hidden bg-gradient-to-b from-ink-950 via-ink-900 to-ink-900 pt-32 pb-20 sm:pt-44 sm:pb-28"
     >
-      {/* Ambient textures */}
+      {/* Ambient texture (static) */}
       <div className="bg-grid pointer-events-none absolute inset-0" aria-hidden="true" />
       <div
-        className="glow-volt animate-drift pointer-events-none absolute -top-40 left-1/2 h-[560px] w-[760px] -translate-x-1/2"
-        aria-hidden="true"
-      />
-      <div
-        className="glow-volt animate-drift-slow pointer-events-none absolute top-1/3 -right-64 h-[420px] w-[520px] opacity-60"
+        className="glow-volt pointer-events-none absolute -top-40 left-1/2 h-[560px] w-[760px] -translate-x-1/2"
         aria-hidden="true"
       />
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
+      <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-[1.12fr_0.88fr] lg:gap-10 xl:grid-cols-[1.25fr_0.75fr]">
         <div>
           <div className="animate-rise" style={{ animationDelay: "0ms" }}>
             <span className="inline-flex items-center gap-2 rounded-full border border-volt-400/30 bg-volt-500/10 px-3.5 py-1.5 text-xs font-medium tracking-wide text-volt-300">
               <span className="h-1.5 w-1.5 rounded-full bg-volt-400" aria-hidden="true" />
-              Operations technology for small business
+              AI Business Operations Platform
             </span>
           </div>
 
           <h1
             id="hero-heading"
-            className="animate-rise mt-6 font-display text-[2.6rem] font-semibold leading-[1.06] tracking-tight text-cloud-50 sm:text-6xl lg:text-[4.1rem]"
+            className="animate-rise mt-6 font-display text-[2.5rem] font-semibold leading-[1.06] tracking-tight text-balance text-cloud-50 sm:text-6xl lg:text-[3.375rem]"
             style={{ animationDelay: "80ms" }}
           >
-            Intelligence That <span className="text-gradient">Moves Business.</span>
+            Every customer enquiry, booking and{" "}
+            <span className="whitespace-nowrap">follow-up</span> —{" "}
+            <span className="text-gradient whitespace-nowrap">in one place.</span>
           </h1>
 
           <p
             className="animate-rise mt-6 max-w-xl text-lg leading-relaxed text-cloud-400 sm:text-xl"
             style={{ animationDelay: "160ms" }}
           >
-            ILYQO gives small businesses one calm place to manage customer enquiries,
-            appointments and follow-ups — so no enquiry is forgotten, no slot is wasted
-            and every promise to call back is kept.
+            ILYQO is an AI business operations platform for businesses that run on customer
+            enquiries and appointments. It captures enquiries and leads, manages bookings, tracks
+            follow-ups and shows your team what needs attention.
+          </p>
+          <p
+            className="animate-rise mt-4 max-w-xl text-base leading-relaxed text-cloud-500"
+            style={{ animationDelay: "200ms" }}
+          >
+            The operations core is working today in the interactive demo. AI customer assistance,
+            website chat and WhatsApp channels are planned and not yet built.
           </p>
 
           <div
@@ -97,11 +79,11 @@ export function Hero() {
             style={{ animationDelay: "240ms" }}
           >
             <ButtonTo to="/demo" size="lg">
-              Explore the live demo
+              Open the interactive demo
               <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
             </ButtonTo>
-            <ButtonLink href="#how-it-works" variant="secondary" size="lg">
-              See how it works
+            <ButtonLink href="#contact" variant="secondary" size="lg">
+              Talk to us
             </ButtonLink>
           </div>
 
@@ -117,7 +99,7 @@ export function Hero() {
             <span aria-hidden="true" className="hidden sm:inline">
               ·
             </span>
-            <span>Fictional barbershop: Demo Cuts, Luanshya</span>
+            <span>Fictional business: Demo Cuts, Luanshya</span>
           </p>
         </div>
 
@@ -127,7 +109,7 @@ export function Hero() {
           style={{ animationDelay: "200ms" }}
         >
           <div className="glow-volt absolute -inset-6" aria-hidden="true" />
-          <div className="animate-float relative rounded-3xl border border-line-strong bg-ink-800/80 p-5 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.8)] backdrop-blur">
+          <div className="relative rounded-3xl border border-line-strong bg-ink-800/80 p-5 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.8)] backdrop-blur">
             <div className="flex items-center justify-between gap-3 border-b border-line pb-4">
               <div className="flex items-center gap-2.5">
                 <span className="grid h-9 w-9 place-items-center rounded-xl bg-volt-500/20 text-volt-300">
@@ -142,17 +124,24 @@ export function Hero() {
             </div>
 
             <div className="mt-4 grid grid-cols-3 gap-2.5">
-              {snapshotStats.map((stat, i) => (
-                <Stat key={stat.label} {...stat} delay={i * 90} />
+              {snapshotStats.map((stat) => (
+                <div key={stat.label} className="rounded-2xl border border-line bg-ink-900/70 p-3.5">
+                  <span className={`grid h-8 w-8 place-items-center rounded-lg ${stat.tone}`}>
+                    <stat.icon className="h-4 w-4" aria-hidden="true" />
+                  </span>
+                  <p className="mt-3 font-display text-2xl font-semibold tabular-nums text-cloud-50">
+                    {stat.value}
+                  </p>
+                  <p className="mt-0.5 text-[11px] leading-tight text-cloud-500">{stat.label}</p>
+                </div>
               ))}
             </div>
 
             <ul className="mt-4 space-y-2" aria-label="Sample schedule">
-              {schedule.map((row, i) => (
+              {schedule.map((row) => (
                 <li
                   key={row.time}
-                  className="animate-rise flex items-center gap-3 rounded-xl border border-line bg-ink-900/60 px-3 py-2.5"
-                  style={{ animationDelay: `${760 + i * 110}ms` }}
+                  className="flex items-center gap-3 rounded-xl border border-line bg-ink-900/60 px-3 py-2.5"
                 >
                   <span className="w-11 font-display text-xs font-semibold tabular-nums text-cloud-300">
                     {row.time}
@@ -178,10 +167,7 @@ export function Hero() {
               ))}
             </ul>
 
-            <div
-              className="animate-rise mt-3 flex items-start gap-2.5 rounded-xl border border-amber-400/25 bg-amber-400/10 px-3 py-2.5 text-xs leading-relaxed text-amber-100"
-              style={{ animationDelay: "1120ms" }}
-            >
+            <div className="mt-3 flex items-start gap-2.5 rounded-xl border border-amber-400/25 bg-amber-400/10 px-3 py-2.5 text-xs leading-relaxed text-amber-100">
               <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-300" aria-hidden="true" />
               <span>
                 <strong className="font-semibold">Follow-up overdue:</strong> Mercy Zulu asked about

@@ -13,28 +13,9 @@ const businessTypes = [
   "Clinic or practice",
   "Tutoring or training centre",
   "Repairs or home services",
-  "Other small business",
-];
-
-const roadmap = [
-  {
-    label: "Now",
-    title: "Interactive demonstration",
-    body: "A working frontend demo with fictional data. Everything on this site that can be clicked, can be used.",
-    tone: "border-emerald-400/35 bg-emerald-400/10 text-emerald-200",
-  },
-  {
-    label: "Next",
-    title: "Pilot deployments",
-    body: "Real accounts and secure data storage for a small group of pilot businesses, shaped with them.",
-    tone: "border-volt-400/35 bg-volt-500/10 text-volt-200",
-  },
-  {
-    label: "Later",
-    title: "Reminders & channels",
-    body: "Appointment reminders and messaging-channel integrations are planned — they are not available today.",
-    tone: "border-line bg-ink-800 text-cloud-300",
-  },
+  "Retail or showroom",
+  "Professional services",
+  "Other business",
 ];
 
 const inputClasses =
@@ -79,7 +60,7 @@ export function Contact() {
     ].join("\n");
 
     const mailto = `mailto:hello@ilyqo.com?subject=${encodeURIComponent(
-      `ILYQO pilot enquiry — ${business}`,
+      `ILYQO enquiry — ${business}`,
     )}&body=${encodeURIComponent(body)}`;
 
     setStatus({ kind: "ready", mailto });
@@ -90,7 +71,7 @@ export function Contact() {
     <Section
       id="contact"
       labelledBy="contact-heading"
-      className="relative overflow-hidden border-t border-line bg-ink-900 py-20 sm:py-28"
+      className="relative overflow-hidden border-t border-line bg-ink-950/60 py-20 sm:py-28"
     >
       <div
         className="glow-volt pointer-events-none absolute -bottom-64 left-1/2 h-[480px] w-[700px] -translate-x-1/2"
@@ -100,32 +81,14 @@ export function Contact() {
       <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
           id="contact-heading"
-          eyebrow="Work with us"
-          title="Want ILYQO running in your business?"
-          description="We're onboarding a small number of pilot businesses to shape the platform. Tell us how enquiries and bookings work for you today, and we'll walk you through the demo with your own scenarios."
+          eyebrow="For businesses"
+          title="Want ILYQO running for your customers?"
+          description="ILYQO is built for businesses that subscribe and configure the platform for their own customers — their services, staff, hours and channels. Tell us how enquiries and bookings work for you today and we will walk you through the demo using your own scenarios."
         />
-
-        <ol className="mt-12 grid gap-4 sm:grid-cols-3" aria-label="Where ILYQO is today">
-          {roadmap.map((item, i) => (
-            <li
-              key={item.label}
-              className="reveal rounded-2xl border border-line bg-ink-800/50 p-5"
-              style={{ transitionDelay: `${i * 70}ms` }}
-            >
-              <span
-                className={`inline-flex rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${item.tone}`}
-              >
-                {item.label}
-              </span>
-              <h3 className="mt-3 font-display text-base font-semibold text-cloud-50">{item.title}</h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-cloud-400">{item.body}</p>
-            </li>
-          ))}
-        </ol>
 
         <div className="mt-14 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
           <div className="reveal">
-            <h3 className="font-display text-lg font-semibold text-cloud-50">What a pilot looks like</h3>
+            <h3 className="font-display text-lg font-semibold text-cloud-50">What happens next</h3>
             <ul className="mt-6 space-y-5">
               {[
                 {
@@ -134,11 +97,11 @@ export function Contact() {
                 },
                 {
                   title: "Honest scope",
-                  body: "You'll know precisely what works today, what's next and what isn't built yet. No surprises after sign-up.",
+                  body: "You will know exactly what works today and what is planned — before any commitment.",
                 },
                 {
-                  title: "No payment during the pilot",
-                  body: "Pilot partners help shape the product. Registering interest costs nothing and commits you to nothing.",
+                  title: "No commitment",
+                  body: "Registering interest costs nothing and commits you to nothing. Pricing has not been announced.",
                 },
               ].map((item) => (
                 <li key={item.title} className="flex gap-3.5">
@@ -171,7 +134,7 @@ export function Contact() {
             style={{ transitionDelay: "100ms" }}
           >
             <form onSubmit={handleSubmit} noValidate>
-              <h3 className="font-display text-lg font-semibold text-cloud-50">Register your interest</h3>
+              <h3 className="font-display text-lg font-semibold text-cloud-50">Tell us about your business</h3>
               <p className="mt-1.5 text-sm text-cloud-500">Fields marked with * are required.</p>
 
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -302,7 +265,7 @@ export function Contact() {
 
               <Button type="submit" size="lg" className="mt-6 w-full">
                 <Send className="h-4 w-4" aria-hidden="true" />
-                Send pilot enquiry
+                Send enquiry
               </Button>
 
               <p className="mt-3 text-center text-xs leading-relaxed text-cloud-500">

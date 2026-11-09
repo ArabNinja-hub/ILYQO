@@ -21,8 +21,9 @@ export function Footer() {
               Intelligence That Moves Business.
             </p>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-cloud-500">
-              Operations technology helping small businesses manage customer enquiries,
-              appointments and follow-ups.
+              An AI business operations platform for managing customer enquiries, appointments,
+              follow-ups and team activity. The operations core is available in the interactive
+              demo; AI assistance and messaging channels are planned.
             </p>
           </div>
 
@@ -79,7 +80,7 @@ export function Footer() {
               </li>
               <li>
                 <a href="#contact" className="text-sm text-cloud-400 transition-colors hover:text-cloud-50">
-                  Register pilot interest
+                  Request a walkthrough
                 </a>
               </li>
             </ul>
@@ -90,9 +91,9 @@ export function Footer() {
           <p className="max-w-3xl text-xs leading-relaxed text-cloud-500">
             <strong className="font-medium text-cloud-400">About the demo:</strong> Demo Cuts is a
             fictional business created to demonstrate ILYQO. All names, phone numbers, prices and
-            figures shown in the demo are fictional. ILYQO does not currently send messages or
-            connect to WhatsApp, SMS or email on your behalf, and no AI features are included in this
-            phase.
+            figures are fictional. The demo does not include AI assistance and does not connect to
+            WhatsApp, SMS, email or any other service — those capabilities are planned and will be
+            announced when they are available.
           </p>
           <div className="mt-6 flex flex-col gap-2 text-xs text-cloud-500 sm:flex-row sm:items-center sm:justify-between">
             <p>© {new Date().getFullYear()} ILYQO. All rights reserved.</p>

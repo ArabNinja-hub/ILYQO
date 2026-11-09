@@ -21,9 +21,9 @@ const includes = [
 ];
 
 const excludes = [
-  "No WhatsApp, SMS or email integration — nothing is sent for you",
-  "No accounts or cloud storage; data stays on this device",
-  "No AI features in this phase",
+  "AI customer assistance — planned, not in this demo",
+  "Website chat and WhatsApp connections — planned; nothing is sent or received for you",
+  "Accounts or cloud storage — data stays on this device",
 ];
 
 const previewCards = [
@@ -60,22 +60,17 @@ export function DemoShowcase() {
       labelledBy="demo-heading"
       className="relative overflow-hidden border-t border-line bg-ink-900 py-20 sm:py-28"
     >
-      <div
-        className="glow-volt animate-drift pointer-events-none absolute -top-32 right-0 h-[520px] w-[720px] opacity-70"
-        aria-hidden="true"
-      />
-
       <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
           id="demo-heading"
           eyebrow="The demonstration"
-          title="Meet Demo Cuts — our first demonstration customer."
+          title="Meet Demo Cuts — our demonstration business."
           description="A fictional barbershop in Luanshya, on Zambia's Copperbelt: three barbers, a front desk and a steady stream of enquiries from calls, walk-ins and social media. The ILYQO demo is built around their week."
         />
 
         <div className="mt-14 grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           {/* Narrative + CTA */}
-          <div className="reveal rounded-3xl border border-volt-400/30 bg-gradient-to-br from-volt-500/15 via-ink-800/70 to-ink-800/70 p-7 shadow-[0_40px_80px_-50px_rgba(137,45,250,0.6)] sm:p-9">
+          <div className="reveal rounded-3xl border border-volt-400/30 bg-gradient-to-br from-volt-500/15 via-ink-800/70 to-ink-800/70 p-7 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.8)] sm:p-9">
             <div className="flex flex-wrap items-center gap-3">
               <DemoBadge />
               <span className="inline-flex items-center gap-1.5 text-xs text-cloud-400">
@@ -98,7 +93,7 @@ export function DemoShowcase() {
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <ButtonTo to="/demo" size="lg" className="sheen animate-shimmer">
+              <ButtonTo to="/demo" size="lg">
                 Open the interactive demo
                 <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
               </ButtonTo>
@@ -114,7 +109,7 @@ export function DemoShowcase() {
                   </li>
                 ))}
               </ul>
-              <ul className="space-y-2.5" aria-label="What the demo does not include">
+              <ul className="space-y-2.5" aria-label="What the demo does not include yet">
                 {excludes.map((item) => (
                   <li key={item} className="flex gap-2.5 text-sm text-cloud-400">
                     <X className="mt-0.5 h-4 w-4 shrink-0 text-cloud-500" aria-hidden="true" />
@@ -127,7 +122,6 @@ export function DemoShowcase() {
 
           {/* Stylised preview */}
           <div className="relative" aria-hidden="true">
-            <div className="absolute -inset-4 glow-volt opacity-70" />
             <div className="relative space-y-3">
               <div className="reveal flex items-center justify-between rounded-2xl border border-line bg-ink-950/80 px-4 py-3">
                 <div className="flex items-center gap-2.5">
@@ -144,7 +138,7 @@ export function DemoShowcase() {
               {previewCards.map((card, i) => (
                 <div
                   key={card.label}
-                  className="reveal rounded-2xl border border-line bg-ink-800/70 p-4 transition-transform duration-300 hover:-translate-y-0.5"
+                  className="reveal rounded-2xl border border-line bg-ink-800/70 p-4"
                   style={{ transitionDelay: `${120 + i * 90}ms` }}
                 >
                   <div className="flex items-center justify-between gap-3">

@@ -26,6 +26,8 @@ const sizes = {
 type LogoProps = {
   size?: keyof typeof sizes;
   className?: string;
+  /** Extra classes for the wrapping link (positioning, blend mode). */
+  linkClassName?: string;
   /** Route to navigate to when the logo is clicked. Pass `null` for a static logo. */
   to?: string | null;
   label?: string;
@@ -44,12 +46,16 @@ type LogoProps = {
  *    only the empty black margin. Scaling stays uniform, so proportions are
  *    preserved exactly.
  *
- * Always render it on an opaque dark surface (ink-950/ink-900) so the blend has
- * something to blend against.
+ * Render it on an opaque dark surface (ink-950/ink-900), OR — when it must sit
+ * on a translucent surface such as the glass navbar — make the link itself a
+ * fixed element with `mix-blend-screen` and no stacking-context ancestors, so
+ * the blend is computed against the real page rather than an isolated group
+ * (inside an isolated group the black canvas would come out opaque).
  */
 export function Logo({
   size = "md",
   className = "",
+  linkClassName = "",
   to = "/",
   label = "ILYQO — home",
   priority = false,
@@ -76,7 +82,11 @@ export function Logo({
   if (to === null) return image;
 
   return (
-    <Link to={to} aria-label={label} className="inline-flex shrink-0 items-center rounded-md">
+    <Link
+      to={to}
+      aria-label={label}
+      className={`inline-flex shrink-0 items-center rounded-md ${linkClassName}`}
+    >
       {image}
     </Link>
   );

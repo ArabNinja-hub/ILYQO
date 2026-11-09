@@ -70,37 +70,6 @@ export function usePrefersReducedMotion() {
   return reduced;
 }
 
-/** Animates a number from 0 to `target` the first time it is rendered. */
-export function useCountUp(target: number, duration = 900, delay = 0) {
-  const reduced = usePrefersReducedMotion();
-  const [value, setValue] = useState(reduced ? target : 0);
-
-  useEffect(() => {
-    if (reduced) {
-      setValue(target);
-      return;
-    }
-    let frame = 0;
-    let start: number | null = null;
-    const timeout = window.setTimeout(() => {
-      const tick = (now: number) => {
-        if (start === null) start = now;
-        const progress = Math.min(1, (now - start) / duration);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        setValue(Math.round(eased * target));
-        if (progress < 1) frame = requestAnimationFrame(tick);
-      };
-      frame = requestAnimationFrame(tick);
-    }, delay);
-    return () => {
-      window.clearTimeout(timeout);
-      cancelAnimationFrame(frame);
-    };
-  }, [target, duration, delay, reduced]);
-
-  return value;
-}
-
 /** Locks body scrolling while `locked` is true (used by dialogs and sheets). */
 export function useLockBodyScroll(locked: boolean) {
   useEffect(() => {
@@ -111,4 +80,42 @@ export function useLockBodyScroll(locked: boolean) {
       document.body.style.overflow = previous;
     };
   }, [locked]);
+}
+
+/**
+ * Returns the id of the section currently crossing the reading band of the
+ * viewport (roughly 40–55% from the top), for highlighting the active nav link.
+ * Returns null when none of the given sections is there (e.g. in the hero).
+ */
+export function useActiveSection(ids: string[]) {
+  const [active, setActive] = useState<string | null>(null);
+  const key = ids.join("|");
+
+  useEffect(() => {
+    const targets = key
+      .split("|")
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+    if (targets.length === 0 || typeof IntersectionObserver === "undefined") return;
+
+    const visible = new Set<string>();
+    const update = () => {
+      const current = targets.find((el) => visible.has(el.id));
+      setActive(current ? current.id : null);
+    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) visible.add(entry.target.id);
+          else visible.delete(entry.target.id);
+        }
+        update();
+      },
+      { rootMargin: "-40% 0px -55% 0px", threshold: 0 },
+    );
+    targets.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [key]);
+
+  return active;
 }

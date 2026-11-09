@@ -31,8 +31,8 @@ const problems = [
 const solutions = [
   {
     icon: Inbox,
-    title: "Every enquiry logged, with a status",
-    body: "Staff capture each enquiry in seconds — who asked, what they want, where they came from. Nothing counts as handled until it's marked handled.",
+    title: "Every enquiry captured, with a status",
+    body: "Each enquiry is recorded with who asked, what they want and where they came from. Nothing counts as handled until it is marked handled.",
   },
   {
     icon: CalendarCheck2,
@@ -87,19 +87,19 @@ export function ProblemSolution() {
     <Section
       id="problem"
       labelledBy="problem-heading"
-      className="border-t border-line bg-ink-950/60 py-20 sm:py-28"
+      className="border-t border-line bg-ink-900 py-20 sm:py-28"
     >
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
           id="problem-heading"
-          eyebrow="The operations problem"
+          eyebrow="The problem"
           title={
             <>
-              Small businesses rarely lose customers on quality.{" "}
-              <span className="text-volt-400">They lose them in the admin.</span>
+              Businesses rarely lose customers on quality.{" "}
+              <span className="text-volt-400">They lose them between the conversations.</span>
             </>
           }
-          description="Enquiries arrive by phone, chat, social media and walk-ins. Bookings live in a paper diary and someone's phone. Follow-ups depend on whoever remembers. ILYQO replaces that patchwork with a single operations view."
+          description="Enquiries arrive by phone, chat, social media and walk-ins. Bookings live in a diary and someone's phone. Follow-ups depend on whoever remembers. ILYQO replaces that patchwork with one operations platform."
         />
 
         <div className="mt-14 grid gap-10 lg:grid-cols-[1fr_auto_1fr] lg:gap-8">

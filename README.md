@@ -1,7 +1,17 @@
 # ILYQO — Intelligence That Moves Business
 
-ILYQO is an operations technology platform that helps small businesses manage
-customer enquiries, appointments and follow-ups in one place.
+ILYQO is an AI business operations platform that helps businesses manage
+customer interactions and operations: enquiry and lead capture, appointment
+and booking management, customer follow-ups and business activity — with AI
+customer assistance and website chat / WhatsApp channels planned. The
+commercial model is B2B: businesses subscribe and configure ILYQO for their
+own customers.
+
+**Implementation status is tracked honestly in three states** (see
+`src/components/StatusTag.tsx`): *In the demo* (clickable today), *Partly in
+the demo*, and *Planned* (no code exists yet — not a preview, not a beta).
+There is deliberately no "in development" state. The `#roadmap` section of
+the website is the user-facing version of this list.
 
 This repository contains two things:
 
@@ -33,12 +43,14 @@ The demo is clearly labelled **DEMO MODE** throughout and covers:
 
 Honest scope — the demo **does not**:
 
-- connect to WhatsApp, SMS, email, Facebook or Instagram, or send any message
-  on your behalf (the "channel" on an enquiry is simply where the customer
-  contacted the shop — staff log it by hand);
-- include any AI, forecasting or automation;
+- include AI customer assistance or any AI/forecasting feature (planned);
+- connect to WhatsApp, website chat, SMS, email, Facebook or Instagram, or send
+  any message on your behalf (planned). The "channel" on an enquiry is simply
+  where the customer contacted the shop — staff log it by hand;
+- have business accounts, multi-business support or subscriptions (planned),
+  and takes no payments;
 - talk to a server. The contact form on the website prepares an email in your
-  own mail app; it does not post anywhere.
+  own mail app; it does not post anywhere, and says so on screen.
 
 ### Demo data
 
@@ -104,9 +116,10 @@ src/
   hooks.ts                  useReveal, useMenuOpen, useCountUp, …
 
   pages/MarketingPage.tsx   Composes the website sections below
-  components/               Website: Navbar, Hero, ProblemSolution, HowItWorks,
-                            Capabilities, DemoShowcase, UseCases, Contact, Footer
-                            Shared: Logo, Button, DemoBadge, Section
+  components/               Website: Navbar, Hero, Capabilities, ProblemSolution,
+                            HowItWorks, DemoShowcase, UseCases, Roadmap, Contact,
+                            Footer
+                            Shared: Logo, Button, DemoBadge, StatusTag, Section
 
   demo/
     DemoApp.tsx             DemoProvider + DemoLayout + nested routes
@@ -128,7 +141,7 @@ src/
 
 | Path | Screen |
 | --- | --- |
-| `/` | Marketing website (sections anchored at `#problem`, `#how-it-works`, `#platform`, `#demo`, `#who-its-for`, `#contact`) |
+| `/` | Marketing website (sections anchored at `#platform`, `#problem`, `#how-it-works`, `#demo`, `#who-its-for`, `#roadmap`, `#contact`) |
 | `/demo` | Redirects to `/demo/overview` |
 | `/demo/overview` | Dashboard |
 | `/demo/enquiries` | Enquiry list. Supports `?status=New`, `?open=<enquiryId>` and `?new=1` |
@@ -149,15 +162,28 @@ src/
   background (no transparency), so the component blends it onto the navy
   surfaces with `mix-blend-mode: screen` and crops only the empty margin with
   `object-fit: cover` inside a wrapper that has the artwork's own aspect ratio.
-  The artwork itself is never redrawn, recoloured or stretched. If a
-  transparent PNG/SVG of the logo becomes available, drop it in and remove the
-  blend mode. The favicon and Apple touch icon are small crops of the same
-  file.
+  The artwork itself is never redrawn, recoloured or stretched. Because the
+  blend only works against the real page, the website's translucent (glass)
+  navigation bar does not contain the logo: `Navbar.tsx` renders it as a
+  separate fixed element aligned with the bar. If a transparent PNG/SVG of the
+  logo becomes available, drop it in and remove the blend mode. The favicon
+  and Apple touch icon are small crops of the same file.
 
 ## Status
 
-- **Phase 1 — brand & website:** done.
-- **Phase 2 — interactive operations demo:** done (front-end only, localStorage
+| In the demo | Planned (not started) |
+| --- | --- |
+| Enquiry & lead capture (entered by staff) | AI customer assistance |
+| Appointments & bookings, per staff member | Website chat channel |
+| Customer follow-ups with owners and outcomes | WhatsApp channel |
+| Overview of what needs attention; activity trail per enquiry | Business accounts and secure cloud storage |
+| Search and filters across all records | Business configuration (services, staff, hours) |
+| | Business activity management beyond the demo's overview |
+| | Subscriptions |
+
+Pricing has not been announced. The planned list is a deliberate public
+commitment — add to it only when that is intended.
+
+- **Brand & website:** done.
+- **Interactive operations demo:** done (front-end only, localStorage
   persistence).
-- **Not built yet:** accounts, multi-business support, a real backend,
-  messaging integrations, reporting beyond simple counts, AI features.

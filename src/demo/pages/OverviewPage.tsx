@@ -297,7 +297,7 @@ export function OverviewPage() {
           <BarList items={data.services.map((s) => ({ label: s.key, value: s.count }))} />
           <p className="mt-5 flex items-start gap-2 border-t border-line pt-4 text-xs leading-relaxed text-cloud-500">
             <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0 text-volt-300" aria-hidden="true" />
-            Simple counts from the demo data — no forecasting or AI in this phase.
+            Simple counts from the demo data. No AI or forecasting is included in this demo.
           </p>
         </Panel>
       </div>

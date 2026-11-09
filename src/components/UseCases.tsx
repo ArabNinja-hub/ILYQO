@@ -7,7 +7,7 @@ const useCases = [
     title: "Barbershops & salons",
     body: "Walk-ins, regulars and group bookings all compete for the same chairs. ILYQO keeps each barber's day clear and every 'can you fit me in?' answered.",
     points: ["Per-barber day view", "Rebooking follow-ups", "No-show tracking"],
-    tag: "First demo: Demo Cuts",
+    tag: "Demo business",
   },
   {
     icon: Stethoscope,
@@ -40,15 +40,15 @@ export function UseCases() {
         <SectionHeading
           id="use-cases-heading"
           eyebrow="Who it's for"
-          title="Built for appointment-driven small businesses."
-          description="ILYQO starts with businesses where every enquiry matters and every missed appointment costs money — beginning with barbershops, and designed to travel."
+          title="Built for businesses that run on enquiries and appointments."
+          description="ILYQO is for any business where a missed enquiry or a missed appointment is lost revenue. We are starting with barbershops and salons, and designing every capability to travel."
         />
 
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {useCases.map((item, i) => (
             <article
               key={item.title}
-              className="reveal flex flex-col rounded-2xl border border-line bg-ink-800/40 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-volt-400/40"
+              className="reveal flex flex-col rounded-2xl border border-line bg-ink-800/40 p-6 transition-colors duration-300 hover:border-volt-400/40"
               style={{ transitionDelay: `${i * 80}ms` }}
             >
               <div className="flex items-start justify-between gap-3">

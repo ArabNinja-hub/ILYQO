@@ -177,8 +177,8 @@ export function EnquiryForm({
 
         <p className="flex items-start gap-2 text-xs leading-relaxed text-cloud-500 sm:col-span-2">
           <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-          Enquiries are logged by your team after a call, message or walk-in. No messaging channels are
-          connected in this demo.
+          In this demo your team logs enquiries after a call, message or walk-in. Connected channels
+          (website chat, WhatsApp) are planned and are not part of the demo.
         </p>
       </form>
     </Modal>
