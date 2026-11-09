@@ -1,0 +1,231 @@
+@import "tailwindcss";
+
+@theme {
+  /* ------------------------------------------------------------------
+     ILYQO identity — midnight navy, electric indigo, soft white.
+     The indigo scale is tuned to the official logo artwork (#892DFA).
+     ------------------------------------------------------------------ */
+  --color-ink-950: #05070f;
+  --color-ink-900: #070b18;
+  --color-ink-800: #0b1024;
+  --color-ink-700: #111735;
+  --color-ink-600: #1a2148;
+  --color-line: rgba(148, 163, 216, 0.16);
+  --color-line-strong: rgba(148, 163, 216, 0.3);
+
+  --color-cloud-50: #f5f7fb;
+  --color-cloud-100: #e9edf7;
+  --color-cloud-300: #aab4d4;
+  --color-cloud-400: #8791b5;
+  --color-cloud-500: #737da6;
+
+  --color-volt-200: #ddd0ff;
+  --color-volt-300: #c4a8ff;
+  --color-volt-400: #a97cff;
+  --color-volt-500: #892dfa;
+  --color-volt-600: #7318e6;
+  --color-volt-700: #5b11b8;
+
+  --font-display: "Sora Variable", "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --animate-rise: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade: fade 0.4s ease-out both;
+  --animate-scale-in: scale-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-sheet-up: sheet-up 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-toast-in: toast-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-pulse-soft: pulse-soft 3.2s ease-in-out infinite;
+  --animate-ping-soft: ping-soft 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes sheet-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes toast-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes pulse-soft {
+    0%,
+    100% {
+      opacity: 0.55;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes ping-soft {
+    0% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    80%,
+    100% {
+      transform: scale(2.4);
+      opacity: 0;
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-ink-900);
+  color: var(--color-cloud-50);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(137, 45, 250, 0.4);
+  color: var(--color-cloud-50);
+}
+
+/* Native form controls on dark backgrounds */
+select option {
+  background-color: var(--color-ink-800);
+  color: var(--color-cloud-50);
+}
+
+input[type="date"],
+input[type="time"] {
+  color-scheme: dark;
+}
+
+/* Focus visibility — accessible by default */
+:focus-visible {
+  outline: 2px solid var(--color-volt-400);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Fixed site logo: lines up with the navbar's centred max-w-6xl container
+   (72rem) and its horizontal padding (1.25rem, 2rem from the sm breakpoint). */
+.site-logo {
+  left: max(1.25rem, calc(50% - 34rem));
+}
+@media (width >= 40rem) {
+  .site-logo {
+    left: max(2rem, calc(50% - 34rem));
+  }
+}
+
+/* Reveal-on-scroll primitive */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Ambient grid + glow textures */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(148, 163, 216, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 216, 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 35%, transparent 75%);
+}
+
+.glow-volt {
+  /* closest-side: the gradient reaches transparent inside the box on every
+     aspect ratio, so wide glows never show a hard edge. */
+  background: radial-gradient(
+    circle closest-side at center,
+    rgba(137, 45, 250, 0.34) 0%,
+    rgba(137, 45, 250, 0.1) 42%,
+    transparent 70%
+  );
+}
+
+.text-gradient {
+  background: linear-gradient(100deg, #f5f7fb 20%, #c4a8ff 55%, #892dfa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Thin horizontal scrollers (filter chips, date strips) */
+.scroll-x {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-x::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
