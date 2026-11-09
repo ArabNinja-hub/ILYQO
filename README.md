@@ -90,13 +90,25 @@ npm run preview    # serve the production build locally
 
 ### Deploying
 
-The app uses client-side routing, so the host must serve `index.html` for any
-unknown path (`/demo`, `/demo/enquiries`, …). Most static hosts call this an
-"SPA fallback" / "rewrite all to index.html". Without it, refreshing a demo
-page returns a 404.
+**GitHub Pages (live site).** `.github/workflows/deploy.yml` builds the site
+and publishes `dist/` to GitHub Pages on every push to `main` (it can also be
+run by hand from the Actions tab). The repository's Pages source is set to
+"GitHub Actions". The project site is served from
+`https://arabninja-hub.github.io/ILYQO/`; the workflow passes the sub-path to
+the build automatically, and if a custom domain is attached later the same
+workflow serves from `/` with no code change.
 
-If the site is served from a sub-path, set Vite's `base` option; the logo URL
-is derived from `import.meta.env.BASE_URL` so it will follow.
+Two build-time settings make this work (both default to the root site):
+
+- `BASE_PATH` — public path, e.g. `/ILYQO/`. Vite's `base`, the logo URL
+  (`import.meta.env.BASE_URL`) and the router `basename` all follow it.
+- `VITE_SITE_URL` — absolute site URL used for the canonical, Open Graph and
+  JSON-LD URLs in `index.html` (`%VITE_SITE_URL%`).
+
+**Any other static host.** The app uses client-side routing, so the host must
+serve `index.html` for unknown paths (`/demo`, `/demo/enquiries`, …) — an "SPA
+fallback" / "rewrite all to index.html". The build also writes `dist/404.html`
+(a copy of `index.html`), which is how GitHub Pages provides that fallback.
 
 ---
 
