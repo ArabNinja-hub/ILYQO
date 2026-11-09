@@ -1,36 +1,35 @@
 import { Mail } from "lucide-react";
-import { Logo } from "./Navbar";
+import { Link } from "react-router-dom";
+import { Logo } from "./Logo";
+import { siteLinks } from "./Navbar";
 
-const navLinks = [
-  { href: "#problem", label: "Why ILYQO" },
-  { href: "#how-it-works", label: "How it works" },
-  { href: "#capabilities", label: "Capabilities" },
-  { href: "#use-cases", label: "Use cases" },
-  { href: "#early-access", label: "Early access" },
+const demoLinks = [
+  { to: "/demo/overview", label: "Overview dashboard" },
+  { to: "/demo/enquiries", label: "Enquiries" },
+  { to: "/demo/appointments", label: "Appointments" },
+  { to: "/demo/follow-ups", label: "Follow-ups" },
 ];
 
 export function Footer() {
   return (
     <footer className="border-t border-line bg-ink-950">
       <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
-            <Logo />
-            <p className="mt-4 max-w-xs font-display text-base leading-snug text-cloud-300">
-              Turn conversations into customers.
+            <Logo size="lg" className="sm:h-16" />
+            <p className="mt-5 max-w-xs font-display text-base leading-snug text-cloud-300">
+              Intelligence That Moves Business.
             </p>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-cloud-500">
-              Intelligent customer engagement and lead conversion — currently in early
-              development.
+              Operations technology helping small businesses manage customer enquiries,
+              appointments and follow-ups.
             </p>
           </div>
 
           <nav aria-label="Footer navigation">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-cloud-500">
-              Site
-            </h2>
+            <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-cloud-500">Website</h2>
             <ul className="mt-4 space-y-2.5">
-              {navLinks.map((link) => (
+              {siteLinks.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
@@ -40,13 +39,34 @@ export function Footer() {
                   </a>
                 </li>
               ))}
+              <li>
+                <a href="#contact" className="text-sm text-cloud-400 transition-colors hover:text-cloud-50">
+                  Talk to us
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+          <nav aria-label="Demo navigation">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-cloud-500">
+              Demo Cuts demo
+            </h2>
+            <ul className="mt-4 space-y-2.5">
+              {demoLinks.map((link) => (
+                <li key={link.to}>
+                  <Link
+                    to={link.to}
+                    className="text-sm text-cloud-400 transition-colors hover:text-cloud-50"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </nav>
 
           <div>
-            <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-cloud-500">
-              Contact
-            </h2>
+            <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-cloud-500">Contact</h2>
             <ul className="mt-4 space-y-2.5">
               <li>
                 <a
@@ -58,11 +78,8 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a
-                  href="#early-access"
-                  className="text-sm text-cloud-400 transition-colors hover:text-cloud-50"
-                >
-                  Request early access
+                <a href="#contact" className="text-sm text-cloud-400 transition-colors hover:text-cloud-50">
+                  Register pilot interest
                 </a>
               </li>
             </ul>
@@ -71,15 +88,15 @@ export function Footer() {
 
         <div className="mt-12 border-t border-line pt-8">
           <p className="max-w-3xl text-xs leading-relaxed text-cloud-500">
-            <strong className="font-medium text-cloud-400">Disclaimer:</strong> ILYQO is
-            in early development and is not yet generally available. Capabilities
-            described on this site describe what is being built, not features currently
-            in operation. No customer results, statistics or partnerships are claimed on
-            this site.
+            <strong className="font-medium text-cloud-400">About the demo:</strong> Demo Cuts is a
+            fictional business created to demonstrate ILYQO. All names, phone numbers, prices and
+            figures shown in the demo are fictional. ILYQO does not currently send messages or
+            connect to WhatsApp, SMS or email on your behalf, and no AI features are included in this
+            phase.
           </p>
           <div className="mt-6 flex flex-col gap-2 text-xs text-cloud-500 sm:flex-row sm:items-center sm:justify-between">
             <p>© {new Date().getFullYear()} ILYQO. All rights reserved.</p>
-            <p>Early access — coming soon.</p>
+            <p>Intelligence That Moves Business.</p>
           </div>
         </div>
       </div>

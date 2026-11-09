@@ -9,16 +9,38 @@ type Status =
   | { kind: "ready"; mailto: string };
 
 const businessTypes = [
-  "Tutoring centre",
-  "Training / certification provider",
-  "Service business (clinic, agency, home services…)",
-  "Other SME",
+  "Barbershop or salon",
+  "Clinic or practice",
+  "Tutoring or training centre",
+  "Repairs or home services",
+  "Other small business",
+];
+
+const roadmap = [
+  {
+    label: "Now",
+    title: "Interactive demonstration",
+    body: "A working frontend demo with fictional data. Everything on this site that can be clicked, can be used.",
+    tone: "border-emerald-400/35 bg-emerald-400/10 text-emerald-200",
+  },
+  {
+    label: "Next",
+    title: "Pilot deployments",
+    body: "Real accounts and secure data storage for a small group of pilot businesses, shaped with them.",
+    tone: "border-volt-400/35 bg-volt-500/10 text-volt-200",
+  },
+  {
+    label: "Later",
+    title: "Reminders & channels",
+    body: "Appointment reminders and messaging-channel integrations are planned — they are not available today.",
+    tone: "border-line bg-ink-800 text-cloud-300",
+  },
 ];
 
 const inputClasses =
   "w-full rounded-xl border border-line bg-ink-950/70 px-4 py-3 text-sm text-cloud-50 placeholder:text-cloud-500 transition-colors focus:border-volt-400/60 focus:outline-none focus:ring-1 focus:ring-volt-400/40";
 
-export function EarlyAccess() {
+export function Contact() {
   const [status, setStatus] = useState<Status>({ kind: "idle" });
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -28,6 +50,7 @@ export function EarlyAccess() {
 
     const name = String(data.get("name") ?? "").trim();
     const email = String(data.get("email") ?? "").trim();
+    const phone = String(data.get("phone") ?? "").trim();
     const business = String(data.get("business") ?? "").trim();
     const type = String(data.get("type") ?? "").trim();
     const message = String(data.get("message") ?? "").trim();
@@ -36,27 +59,27 @@ export function EarlyAccess() {
       setStatus({ kind: "invalid", message: "Please fill in your name, email and business name." });
       return;
     }
-    // Deliberately simple, honest validation — no backend exists yet.
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setStatus({ kind: "invalid", message: "Please enter a valid email address." });
       return;
     }
 
-    // No submission backend exists in this phase. Instead of faking success,
-    // hand the user a prefilled email they can actually send.
+    // There is no submission backend in this phase. Rather than faking a
+    // success state, hand the visitor a prefilled email they can actually send.
     const body = [
       `Name: ${name}`,
       `Email: ${email}`,
+      `Phone: ${phone || "Not provided"}`,
       `Business: ${business}`,
       `Type: ${type || "Not specified"}`,
       "",
       message || "(No additional message)",
       "",
-      "— Sent from the ILYQO early-access form",
+      "— Sent from the ILYQO website",
     ].join("\n");
 
     const mailto = `mailto:hello@ilyqo.com?subject=${encodeURIComponent(
-      `Early access request — ${business}`,
+      `ILYQO pilot enquiry — ${business}`,
     )}&body=${encodeURIComponent(body)}`;
 
     setStatus({ kind: "ready", mailto });
@@ -65,9 +88,9 @@ export function EarlyAccess() {
 
   return (
     <Section
-      id="early-access"
-      labelledBy="early-access-heading"
-      className="relative overflow-hidden border-t border-line bg-ink-950/60 py-20 sm:py-28"
+      id="contact"
+      labelledBy="contact-heading"
+      className="relative overflow-hidden border-t border-line bg-ink-900 py-20 sm:py-28"
     >
       <div
         className="glow-volt pointer-events-none absolute -bottom-64 left-1/2 h-[480px] w-[700px] -translate-x-1/2"
@@ -76,43 +99,53 @@ export function EarlyAccess() {
 
       <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
-          id="early-access-heading"
-          eyebrow="Early access"
-          title="Help shape ILYQO before it launches."
-          description="We're opening early access to a small group of tutoring centres, training providers and service businesses. Tell us about your enquiry flow — we'll be in touch as the product takes shape."
+          id="contact-heading"
+          eyebrow="Work with us"
+          title="Want ILYQO running in your business?"
+          description="We're onboarding a small number of pilot businesses to shape the platform. Tell us how enquiries and bookings work for you today, and we'll walk you through the demo with your own scenarios."
         />
 
+        <ol className="mt-12 grid gap-4 sm:grid-cols-3" aria-label="Where ILYQO is today">
+          {roadmap.map((item, i) => (
+            <li
+              key={item.label}
+              className="reveal rounded-2xl border border-line bg-ink-800/50 p-5"
+              style={{ transitionDelay: `${i * 70}ms` }}
+            >
+              <span
+                className={`inline-flex rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${item.tone}`}
+              >
+                {item.label}
+              </span>
+              <h3 className="mt-3 font-display text-base font-semibold text-cloud-50">{item.title}</h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-cloud-400">{item.body}</p>
+            </li>
+          ))}
+        </ol>
+
         <div className="mt-14 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
-          {/* What early access means */}
           <div className="reveal">
-            <h3 className="font-display text-lg font-semibold text-cloud-50">
-              What early access looks like
-            </h3>
+            <h3 className="font-display text-lg font-semibold text-cloud-50">What a pilot looks like</h3>
             <ul className="mt-6 space-y-5">
               {[
                 {
-                  title: "Direct input on the product",
-                  body: "Tell us how your enquiries actually arrive today. That shapes what we build first.",
+                  title: "A walkthrough built around your week",
+                  body: "We load the demo with your services, staff and typical enquiries so you can see exactly how it would feel.",
                 },
                 {
-                  title: "A founding cohort, not a mass rollout",
-                  body: "Early access is limited and staged. There's no product to log into yet — this is about staying close as development progresses.",
+                  title: "Honest scope",
+                  body: "You'll know precisely what works today, what's next and what isn't built yet. No surprises after sign-up.",
                 },
                 {
-                  title: "No commitment, no payment",
-                  body: "Registering interest costs nothing and obliges nothing. We'll only reach out about ILYQO's development.",
+                  title: "No payment during the pilot",
+                  body: "Pilot partners help shape the product. Registering interest costs nothing and commits you to nothing.",
                 },
               ].map((item) => (
                 <li key={item.title} className="flex gap-3.5">
-                  <CheckCircle2
-                    className="mt-0.5 h-5 w-5 shrink-0 text-volt-400"
-                    aria-hidden="true"
-                  />
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-volt-400" aria-hidden="true" />
                   <div>
                     <p className="text-sm font-medium text-cloud-50">{item.title}</p>
-                    <p className="mt-1 text-sm leading-relaxed text-cloud-400">
-                      {item.body}
-                    </p>
+                    <p className="mt-1 text-sm leading-relaxed text-cloud-400">{item.body}</p>
                   </div>
                 </li>
               ))}
@@ -124,7 +157,7 @@ export function EarlyAccess() {
                 Prefer email? Reach us directly at{" "}
                 <a
                   href="mailto:hello@ilyqo.com"
-                  className="font-medium text-volt-300 underline underline-offset-4 hover:text-volt-400"
+                  className="font-medium text-volt-300 underline underline-offset-4 hover:text-volt-200"
                 >
                   hello@ilyqo.com
                 </a>
@@ -133,26 +166,21 @@ export function EarlyAccess() {
             </div>
           </div>
 
-          {/* Form */}
           <div
             className="reveal rounded-3xl border border-line-strong bg-ink-800/60 p-6 backdrop-blur sm:p-8"
             style={{ transitionDelay: "100ms" }}
           >
             <form onSubmit={handleSubmit} noValidate>
-              <h3 className="font-display text-lg font-semibold text-cloud-50">
-                Register your interest
-              </h3>
-              <p className="mt-1.5 text-sm text-cloud-500">
-                Fields marked with * are required.
-              </p>
+              <h3 className="font-display text-lg font-semibold text-cloud-50">Register your interest</h3>
+              <p className="mt-1.5 text-sm text-cloud-500">Fields marked with * are required.</p>
 
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="ea-name" className="text-sm font-medium text-cloud-300">
+                  <label htmlFor="ct-name" className="text-sm font-medium text-cloud-300">
                     Your name *
                   </label>
                   <input
-                    id="ea-name"
+                    id="ct-name"
                     name="name"
                     type="text"
                     autoComplete="name"
@@ -163,11 +191,11 @@ export function EarlyAccess() {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="ea-email" className="text-sm font-medium text-cloud-300">
-                    Work email *
+                  <label htmlFor="ct-email" className="text-sm font-medium text-cloud-300">
+                    Email *
                   </label>
                   <input
-                    id="ea-email"
+                    id="ct-email"
                     name="email"
                     type="email"
                     autoComplete="email"
@@ -178,30 +206,40 @@ export function EarlyAccess() {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="ea-business" className="text-sm font-medium text-cloud-300">
-                    Business name *
+                  <label htmlFor="ct-phone" className="text-sm font-medium text-cloud-300">
+                    Phone
                   </label>
                   <input
-                    id="ea-business"
-                    name="business"
-                    type="text"
-                    autoComplete="organization"
-                    required
-                    placeholder="Bright Path Tutoring"
+                    id="ct-phone"
+                    name="phone"
+                    type="tel"
+                    autoComplete="tel"
+                    placeholder="+260 97 000 0000"
                     className={inputClasses}
                   />
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="ea-type" className="text-sm font-medium text-cloud-300">
+                  <label htmlFor="ct-business" className="text-sm font-medium text-cloud-300">
+                    Business name *
+                  </label>
+                  <input
+                    id="ct-business"
+                    name="business"
+                    type="text"
+                    autoComplete="organization"
+                    required
+                    placeholder="Fresh Fade Barbers"
+                    className={inputClasses}
+                  />
+                </div>
+
+                <div className="flex flex-col gap-1.5 sm:col-span-2">
+                  <label htmlFor="ct-type" className="text-sm font-medium text-cloud-300">
                     Business type
                   </label>
                   <div className="relative">
-                    <select
-                      id="ea-type"
-                      name="type"
-                      className={`${inputClasses} appearance-none pr-10`}
-                    >
+                    <select id="ct-type" name="type" className={`${inputClasses} appearance-none pr-10`}>
                       <option value="">Select one…</option>
                       {businessTypes.map((t) => (
                         <option key={t} value={t}>
@@ -210,21 +248,21 @@ export function EarlyAccess() {
                       ))}
                     </select>
                     <ChevronDown
-                      className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-cloud-500"
+                      className="pointer-events-none absolute top-1/2 right-3.5 h-4 w-4 -translate-y-1/2 text-cloud-500"
                       aria-hidden="true"
                     />
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-1.5 sm:col-span-2">
-                  <label htmlFor="ea-message" className="text-sm font-medium text-cloud-300">
-                    How do customer enquiries reach you today?
+                  <label htmlFor="ct-message" className="text-sm font-medium text-cloud-300">
+                    How do enquiries and bookings reach you today?
                   </label>
                   <textarea
-                    id="ea-message"
+                    id="ct-message"
                     name="message"
                     rows={4}
-                    placeholder="Calls, WhatsApp, website form, walk-ins…"
+                    placeholder="Calls, chat messages, Facebook, walk-ins, a paper diary…"
                     className={`${inputClasses} resize-y`}
                   />
                 </div>
@@ -246,18 +284,11 @@ export function EarlyAccess() {
                   className="mt-4 rounded-xl border border-volt-400/35 bg-volt-500/10 px-4 py-4 text-sm leading-relaxed text-cloud-100"
                 >
                   <p className="flex items-start gap-2">
-                    <AlertCircle
-                      className="mt-0.5 h-4 w-4 shrink-0 text-volt-300"
-                      aria-hidden="true"
-                    />
+                    <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-volt-300" aria-hidden="true" />
                     <span>
-                      <strong className="font-semibold">This form isn't connected yet.</strong>{" "}
-                      ILYQO is still in development, so there's no backend to receive
-                      submissions — and we won't pretend otherwise.
+                      <strong className="font-semibold">This form isn't connected to a server yet.</strong>{" "}
+                      Your details have been prepared as an email instead.
                     </span>
-                  </p>
-                  <p className="mt-3 pl-6 text-cloud-300">
-                    Your details are ready to send by email instead:
                   </p>
                   <a
                     href={status.mailto}
@@ -269,14 +300,14 @@ export function EarlyAccess() {
                 </div>
               )}
 
-              <Button type="submit" className="mt-6 w-full py-3.5">
+              <Button type="submit" size="lg" className="mt-6 w-full">
                 <Send className="h-4 w-4" aria-hidden="true" />
-                Send early-access request
+                Send pilot enquiry
               </Button>
 
               <p className="mt-3 text-center text-xs leading-relaxed text-cloud-500">
-                By submitting, you agree to be contacted about ILYQO's early access.
-                This preview site does not store your details.
+                By submitting, you agree to be contacted about ILYQO. This website does not store your
+                details.
               </p>
             </form>
           </div>

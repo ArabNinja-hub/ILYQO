@@ -1,4 +1,4 @@
-import { Inbox, ListChecks, RefreshCw, UserCheck } from "lucide-react";
+import { Inbox, CalendarPlus, ListChecks, LayoutDashboard } from "lucide-react";
 import { Section, SectionHeading } from "./Section";
 
 const steps = [
@@ -6,25 +6,25 @@ const steps = [
     icon: Inbox,
     step: "01",
     title: "Capture",
-    body: "An enquiry arrives. ILYQO picks up the conversation and responds promptly with relevant, natural questions.",
+    body: "Log every enquiry as it arrives — the customer, what they asked for and which channel they used. It takes less time than writing it on a sticky note.",
+  },
+  {
+    icon: CalendarPlus,
+    step: "02",
+    title: "Book",
+    body: "Turn an enquiry into an appointment with the right staff member, service and time slot. Clashes are flagged before they become double bookings.",
   },
   {
     icon: ListChecks,
-    step: "02",
-    title: "Qualify",
-    body: "Key details — need, timing, budget fit — are gathered from the conversation so you know which leads are real.",
-  },
-  {
-    icon: RefreshCw,
     step: "03",
-    title: "Nurture",
-    body: "Promising leads aren't left waiting. Thoughtful follow-ups keep the conversation warm until there's a decision.",
+    title: "Follow up",
+    body: "Create follow-ups with an owner and a due date: confirmations, call-backs, after-visit check-ins and rebooking nudges. Mark them done with an outcome.",
   },
   {
-    icon: UserCheck,
+    icon: LayoutDashboard,
     step: "04",
-    title: "Hand over",
-    body: "When a conversation is ready for a human, your team receives the full context — no re-asking, no starting over.",
+    title: "Review",
+    body: "The overview shows today's schedule, what needs attention, where enquiries come from and how many turn into bookings.",
   },
 ];
 
@@ -39,8 +39,8 @@ export function HowItWorks() {
         <SectionHeading
           id="how-heading"
           eyebrow="How ILYQO works"
-          title="One conversation, four deliberate stages."
-          description="The flow ILYQO is being designed around — from first message to human handover."
+          title="Capture. Book. Follow up. Review."
+          description="Four simple habits, supported by software your team can learn in an afternoon — not a system that needs a consultant."
         />
 
         <ol className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -58,13 +58,11 @@ export function HowItWorks() {
                   {item.step}
                 </span>
               </div>
-              <h3 className="mt-5 font-display text-lg font-semibold text-cloud-50">
-                {item.title}
-              </h3>
+              <h3 className="mt-5 font-display text-lg font-semibold text-cloud-50">{item.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-cloud-400">{item.body}</p>
               {i < steps.length - 1 && (
                 <span
-                  className="absolute -bottom-3 left-1/2 hidden h-6 w-px -translate-x-1/2 bg-gradient-to-b from-volt-400/60 to-transparent sm:block lg:hidden xl:block"
+                  className="absolute top-1/2 -right-3 hidden h-px w-6 -translate-y-1/2 bg-gradient-to-r from-volt-400/60 to-transparent lg:block"
                   aria-hidden="true"
                 />
               )}
@@ -72,9 +70,9 @@ export function HowItWorks() {
           ))}
         </ol>
 
-        <p className="reveal mx-auto mt-10 max-w-2xl text-center text-sm text-cloud-500">
-          This flow describes the product being designed. ILYQO is not yet released —
-          early access partners help us refine each stage before launch.
+        <p className="reveal mx-auto mt-10 max-w-2xl text-center text-sm leading-relaxed text-cloud-500">
+          Your team still has the conversations — by phone, in person or in chat. ILYQO
+          keeps what was agreed organised, visible and owned, so nothing depends on memory.
         </p>
       </div>
     </Section>

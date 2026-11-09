@@ -51,3 +51,64 @@ export function useMenuOpen() {
 
   return { open, setOpen };
 }
+
+/** True when the user prefers reduced motion. */
+export function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(() =>
+    typeof window !== "undefined"
+      ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      : false,
+  );
+
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const onChange = () => setReduced(query.matches);
+    query.addEventListener("change", onChange);
+    return () => query.removeEventListener("change", onChange);
+  }, []);
+
+  return reduced;
+}
+
+/** Animates a number from 0 to `target` the first time it is rendered. */
+export function useCountUp(target: number, duration = 900, delay = 0) {
+  const reduced = usePrefersReducedMotion();
+  const [value, setValue] = useState(reduced ? target : 0);
+
+  useEffect(() => {
+    if (reduced) {
+      setValue(target);
+      return;
+    }
+    let frame = 0;
+    let start: number | null = null;
+    const timeout = window.setTimeout(() => {
+      const tick = (now: number) => {
+        if (start === null) start = now;
+        const progress = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setValue(Math.round(eased * target));
+        if (progress < 1) frame = requestAnimationFrame(tick);
+      };
+      frame = requestAnimationFrame(tick);
+    }, delay);
+    return () => {
+      window.clearTimeout(timeout);
+      cancelAnimationFrame(frame);
+    };
+  }, [target, duration, delay, reduced]);
+
+  return value;
+}
+
+/** Locks body scrolling while `locked` is true (used by dialogs and sheets). */
+export function useLockBodyScroll(locked: boolean) {
+  useEffect(() => {
+    if (!locked) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [locked]);
+}
